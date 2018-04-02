@@ -46,4 +46,7 @@ function menosEtiquetas(){
         micapa.innerHTML+='<input type="text" class="R" placeholder="Etiqueta '+(i+1)+'" name="username">';
     }
 }
+    function llevar(){
+        document.publicar.submit() 
+    }
 

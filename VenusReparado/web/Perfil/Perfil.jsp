@@ -154,7 +154,7 @@
                         <ul>
                             <li><a href="MisOutfits.html"><i class="fa fa-tags"></i>Mis outfits</a></li>
                             <li><a href="Intereses.html"><i class="fa fa-heart"></i>Intereses</a></li>
-                            <li><a href="Peticiones.html"><i class="fa fa-pencil"></i>Mis peticiones</a></li>
+                            <li><a href="Peticiones.jsp"><i class="fa fa-pencil"></i>Mis peticiones</a></li>
                             <li><a href="Contactos.jsp"><i class="fa fa-group"></i>Contactos</a></li>
                         </ul>
                     </li>

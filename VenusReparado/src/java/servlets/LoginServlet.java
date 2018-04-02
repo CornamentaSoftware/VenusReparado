@@ -74,10 +74,10 @@ public class LoginServlet extends HttpServlet {
                         sesion.setAttribute("ImagenPerfil", imagen);
                         
                         if (ipusuario.equals(ipbase)) {
-                            resp.sendRedirect("http://localhost:8084/VenusProject/Plantillas/Menu.jsp");
+                            resp.sendRedirect("Plantillas/Menu.jsp");
                         } else {
                            response(resp, "<script>alert('Se ha iniciado sesión por última vez en otro equipo, es necesario validar la sesión');"
-                       + "window.location.href = 'http://localhost:8084/VenusProject/Plantillas/Comprobacion.jsp';</script>");
+                       + "window.location.href = 'Plantillas/Comprobacion.jsp';</script>");
                         }
 		} else {
 			response(resp, "<script>alert('La sesion es inválida o no existe');window.location.href = 'http://localhost:8084/VenusProject/Plantillas/Ingresar.html';</script>");   
