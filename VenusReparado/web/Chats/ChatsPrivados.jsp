@@ -1,3 +1,6 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Chats</title>
@@ -8,13 +11,21 @@
         <link rel="stylesheet" href="../css/menu.css" type="text/css">
         <link href="../css/desplegable.css" rel="stylesheet" type="text/css"/>
         <script src="../JS/desplegar.js" type="text/javascript"></script>
+         <script src="../JS/chat.js" type="text/javascript"></script>
         <link href="../css/botones.css" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Montserrat|Raleway|Lobster+Two" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Lobster+Two|Pacifico" rel="stylesheet">
         <link rel="stylesheet" href="../font-Awesome/css/font-awesome.min.css" type="text/css"/>
         <link href="../css/Chats/Chats.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <%
+            HttpSession sesion = request.getSession(true);
+            sesion.getAttribute("IdUsuario");
+            
+            
+            
+        %>
         <div class="MenuA">
             <div class="Logo">
                 <img src="../Img/logo3.png" alt=""/>
@@ -114,28 +125,41 @@
             </nav>
         </div>
         </div>
-        <div class="InicioChats">
-            <img src="../Img/Chats/chats1.png" class="a img" alt=""/>
-            <img src="../Img/Chats/chats9.png" class="b img" alt=""/>
-            <img src="../Img/Chats/chats8.png" class="c img" alt=""/>
-            <img src="../Img/Chats/chats4.png" class="d img" alt=""/>
-            <img src="../Img/Chats/chats7.png" class="e img" alt=""/>
-            <img src="../Img/Chats/chats6.png" class="f img" alt=""/>
-            <img src="../Img/Chats/chats5.png" class="g img" alt=""/>
-            <img src="../Img/Chats/chats10.png" class="h img" alt=""/>
-                <div class="texto">
-                <p class="LobsterTwo color46373f">Chats</p>
-                <p class="Raleway pequeño">Siéntete libre de compartir lo que sea</p>
-                </div>
+        <div class="msjChats">
+            <div class='marginBottom'>
+            <p class="LobsterTwo color46373f">Chats privados</p>
+            <p class="Raleway marginBottom0 left">Selecciona algún chat o crea uno nuevo...</p>
+            <button class="btnFont right" id='nuevo' onclick="location.href='NuevoChat.html';">Crear chat</button>
+            </div>
+            <form class='Chats left' action="Chat.html">
+                <button class='nadaButton' type="submit">
+                    <div class="veinte2">
+                    <img src="../Img/Chats/2.jpg" alt=""/>
+                    </div>
+                    <div class='datosChat'>
+                    <p class="Pacifico">MA'S</p>
+                    <p class="Raleway margin0">Gabby: ¿Cúando nos vemos?💃</p>
+                    <p class="Raleway margin0">1 día</p>
+                    </div>
+                </button>
+            </form>
+            <form class='Chats left' action="Chat.html">
+                <button class='nadaButton' type="submit">
+                    <div class="veinte2">
+                    <img src="../Img/Chats/chats2.PNG" alt=""/>
+                    </div>
+                    <div class='datosChat'>
+                    <p class="Pacifico">Cornamenta</p>
+                    <p class="Raleway margin0">Marbella: ¿ia hicieron algo?</p>
+                    <p class="Raleway margin0">10 días</p>
+                    </div>
+                </button>
+            </form>
         </div>
         <div class="opciones">
             <div class="contOpc">
-                <form name="cPublicos" action="ChatsPublicos.jsp" method="post">
-                    <button type="submit" class="btn btnR">Públicos</button>
-                </form>
-                <form name="cPrivados" action="ChatsPrivados.jsp" method="post">
-                    <button type="submit" class="btn btnR">Privados</button>
-                </form>
+            <button class="btn btnSRSH" onclick="location.href='ChatsPrivados.html';">Privados</button>
+            <button class="btn btnR" onclick="location.href='ChatsPublicos.html';">Públicos</button>
             </div>
         </div>
     </body>
