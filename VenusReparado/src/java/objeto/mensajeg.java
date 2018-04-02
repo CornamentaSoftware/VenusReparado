@@ -5,10 +5,6 @@
  */
 package objeto;
 
-/**
- *
- * @author Javier
- */
 public class mensajeg {
     private String nombre;
     private String mensaje;

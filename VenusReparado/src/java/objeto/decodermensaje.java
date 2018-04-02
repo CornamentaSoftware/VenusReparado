@@ -14,10 +14,7 @@ import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
-/**
- *
- * @author Javier
- */
+
 public class decodermensaje implements Decoder.TextStream<mensajeg> {
 
     @Override

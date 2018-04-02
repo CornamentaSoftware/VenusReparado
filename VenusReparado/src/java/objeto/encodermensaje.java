@@ -15,10 +15,7 @@ import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
-/**
- *
- * @author Javier
- */
+
 public class encodermensaje implements Encoder.TextStream<mensajeg>{
 
     @Override
