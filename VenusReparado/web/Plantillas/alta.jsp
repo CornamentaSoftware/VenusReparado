@@ -100,7 +100,7 @@
                 result = sta.executeQuery("select * from usuario where Username_Usuario = '" + username + "';");
                 if(result.first()){
                     out.println("<script>alert('Ya existe este username dentro del sistema');"
-                            + "window.location.href = 'http://localhost:8084/VenusProject/Plantillas/Registrarse.html';</script>");
+                            + "window.location.href = 'Registrarse.html';</script>");
                 }
                 else{
                     AES cifrar = new AES();
@@ -113,10 +113,10 @@
                     session.setAttribute("usuario", username);
                     session.setAttribute("contrasenia", contra);
                     session.setAttribute("ImagenPerfil", objeto);
-                    out.println("<script>alert('Registrado con éxito');window.location.href = 'http://localhost:8084/VenusProject/Plantillas/redireccionar.jsp';</script>");
+                    out.println("<script>alert('Registrado con éxito');window.location.href = 'redireccionar.jsp';</script>");
                 }
             } catch (SQLException error) {     
-                out.println("<script>alert('Ha ocurrido un error con tu alta');window.location.href = 'http://localhost:8084/VenusProject/Plantillas/Registrarse.html';</script>");
+                out.println("<script>alert('Ha ocurrido un error con tu alta');window.location.href = 'Registrarse.html';</script>");
             }
             con.close();
         %>
