@@ -130,8 +130,12 @@
         </div>
         <div class="opciones">
             <div class="contOpc">
-            <button class="btn btnR" onclick="location.href='ChatsPrivados.html';">Privados</button>
-            <button class="btn btnR" onclick="location.href='ChatsPublicos.html';">Públicos</button>
+                <form name="cPublicos" action="ChatsPublicos.jsp" method="post">
+                    <button type="submit" class="btn btnR">Públicos</button>
+                </form>
+                <form name="cPrivados" action="ChatsPrivados.jsp" method="post">
+                    <button type="submit" class="btn btnR">Privados</button>
+                </form>
             </div>
         </div>
     </body>

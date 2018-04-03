@@ -1,3 +1,6 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Chats</title>
@@ -16,6 +19,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <%
+            HttpSession sesion = request.getSession(true);
+            sesion.getAttribute("IdUsuario");
+            
+            
+            
+        %>
         <div class="MenuA">
             <div class="Logo">
                 <img src="../Img/logo3.png" alt=""/>
