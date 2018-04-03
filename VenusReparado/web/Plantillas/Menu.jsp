@@ -4,6 +4,11 @@
     Author     : rodri
 --%>
 
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -16,6 +21,8 @@
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Montserrat|Raleway" rel="stylesheet">
         <link href="../font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+         <script src="../JS/desplegar.js" type="text/javascript"></script>
+         <script src="../JS/subirArchivo.js" type="text/javascript"></script>
         <link href="../css/menu.css" rel="stylesheet" type="text/css"/>
         <link href="../css/menuA.css" rel="stylesheet" type="text/css"/>
         <link href="../css/General.css" rel="stylesheet" type="text/css"/>
@@ -84,10 +91,21 @@
             if (sg<10) {sg="0"+sg;} 
             if (mn<10) {mn="0"+mn;} 
         }
-        
+        function publicacion(){
+                var texto = document.publicar.contenidoPublicacion.value;
+                var imagen = document.publicar.image.value;
+                
+                if ((texto === "" || texto === " ") && imagen === ""){
+                    alert("Para realizar una publicación necesitas ingresar una imagen o un texto");
+                }
+                else{
+                    document.publicar.submit() 
+                }
+            }
         
     </script>
     <body onload="inicia(), deshabilitaRetroceso(), " onclick="continua()" onkeypress="continua()" OnMouseMove="continua()">
+        <form name="publicar" action="Perfil/Publicar.jsp" enctype=multipart/form-data method="POST">
         <%@page import="java.io.*, java.text.SimpleDateFormat" %>
         <%
             String user = (String)session.getAttribute("usuario");
@@ -115,6 +133,23 @@
             int diferenciaMinutos=actual.getMinutes() - duracion.getMinutes();
             //Muestra el resultado en el textfield
             String hora="Tiempo en la sesion: "+diferenciaHoras+" horas, "+diferenciaMinutos+" minutos.";
+            
+            String nombre = (String)session.getAttribute("nombre");
+            String IdUsuario = (String)session.getAttribute("IdUsuario");
+            
+            Connection con = null;
+            Statement sta = null;
+            ResultSet result;
+            
+            try {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                con = DriverManager.getConnection("jdbc:mysql://localhost/VENUS", "root", "n0m3l0");
+                sta = con.createStatement();
+                } catch (SQLException error) {
+                    out.print(error.toString());
+                }
+            
+            ResultSet resultado = sta.executeQuery("select * from publicacion where Id_Usuario = '"+IdUsuario+"' order by fecha desc") ;
             
         %>
         <div class="MenuA">
@@ -190,7 +225,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="../Tutoriales/Tutoriales.html">
+                            <a href="../Tutoriales/Tutoriales.jsp">
                                 <i class="fa fa-picture-o"></i>
                                 <strong>Tutoriales</strong>
                                 <small>Aprende algo nuevo</small>
@@ -212,10 +247,42 @@
                     </ul>
             </nav>
         </div>
-        <div class="TimeLine">
-            <p class="DancingScript">Publicaciones</p>
-            <textarea> </textarea><br>
-            <button type="button" class="btn btnR btnDerecha">Publicar</button>
+        <div class="Inicio">
+            <div class="PublicacionesGeneral">
+                <p class="Raleway">Publicaciones</p>
+                <textarea name="contenidoPublicacion" id="cajaPublicacion"></textarea><br>
+                <button type="button" class="fa fa-picture-o imagen btn btnSR" id="foto">
+                    <p class="nada" id="texto" name="imagenTexto"></p>
+                    <input type="file" accept=".jpg, .jpeg, .png" id="imagen" onchange="cambia(), diseno();" class="inputfile" name="image" required=""/>
+                </button>
+                <button type="button" class="btn btnR btnDerecha" onclick="publicacion()">Publicar</button>
+                <div class="Publicaciones">
+                    
+                        <%
+                            while(resultado.next()){
+                            out.println("<div class='publicacion'>");
+                            
+                                out.println("<img src='../" + imagenperfil + "'/>");
+                                out.println("<p class='nombre Raleway'>"+nombre+"</p>");
+                                out.println("<p class='user Raleway'>"+user+"</p>");
+                                out.println("<p class='contenido'> "+ resultado.getString("contenido") +" </p>");
+                                
+                                    out.println("<div class='imagenCuadro'>");
+                                        out.println("<div class='vertical'>");
+                                        out.print("<img src='../"+ resultado.getString("imagen") +"' class='publicacionImg' alt=''/>");
+                                        out.println("</div>");
+                                    out.println("</div>");
+                                    
+                                    out.println("<div class='fechaHora'>");
+                                        out.println("<p class='fecha Raleway'>"+ resultado.getString("fecha") +"</p>");
+                                    out.println("</div>");
+                                    
+                            out.println("</div>");
+                            }
+                        %>
+                    
+                </div>
+            </div>
         </div>
         <div class="Intercambiable">
             <p class="DancingScript">Intercambiable</p>
@@ -228,5 +295,6 @@
                 </div>
             </div>
         </div>
+        </form>
     </body>
 </html>
