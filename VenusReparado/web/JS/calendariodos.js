@@ -11,12 +11,13 @@ window.onload = function () {
     diahoy = hoy.getDate(); //dia mes actual
     meshoy = hoy.getMonth(); //mes actual
     annohoy = hoy.getFullYear(); //año actual
+	tiempodura=0;
 // Elementos del DOM: en cabecera de calendario 
     tit = document.getElementById("titulos"); //cabecera del calendario
     ant = document.getElementById("anterior"); //mes anterior
     pos = document.getElementById("posterior"); //mes posterior
-    fech = document.getElementById("textofecha");
-    fechaCiclo = fech.value;
+    //fech = document.getElementById("textofecha");
+    //fechaCiclo = fech.value;
 // Elementos del DOM en primera fila
     f0 = document.getElementById("fila0");
 //Pie de calendario
@@ -56,7 +57,8 @@ function primeralinea() {
 }
 //rellenar celdas con los días
 function escribirdias() {
-    ciclo = new Date(fechaCiclo);
+	fech = document.getElementById("textofecha").value;
+    ciclo = new Date(fech);
     //Buscar dia de la semana del dia 1 del mes:
     primeromes = new Date(annocal, mescal, "1") //buscar primer día del mes
     prsem = primeromes.getDay() //buscar día de la semana del día 1
@@ -83,7 +85,59 @@ function escribirdias() {
             celda.style.backgroundColor = "#9bf5ff";
             celda.style.color = "#492736";
 
-            if (midia >= ciclo.getDate() + 1 && midia <= ciclo.getDate() + 7) {
+            if (midia >= ciclo.getDate() + 1 && midia <= ciclo.getDate() + tiempodura) {
+                celda.style.backgroundColor = "#be42ee";
+            }
+            //domingos en rojo
+            if (j == 6) {
+                celda.style.color = "#f11445";
+            }
+            //dias restantes del mes en gris
+            if (mimes != mescal) {
+                celda.style.color = "#a0babc";
+            }
+            //destacar la fecha actual
+            if (mimes == meshoy && midia == diahoy && mianno == annohoy) {
+                celda.style.backgroundColor = "#f0b19e";
+                celda.innerHTML = "<cite title='Fecha Actual'>" + midia + "</cite>";
+            }
+            //pasar al siguiente día
+            midia = midia + 1;
+            diames.setDate(midia);
+        }
+    }
+}
+function escribirdias(duracion) {
+	tiempodura=duracion;
+	fech = document.getElementById("textofecha").value;
+    ciclo = new Date(fech);
+    //Buscar dia de la semana del dia 1 del mes:
+    primeromes = new Date(annocal, mescal, "1") //buscar primer día del mes
+    prsem = primeromes.getDay() //buscar día de la semana del día 1
+    prsem--; //adaptar al calendario español (empezar por lunes)
+    if (prsem == -1) {
+        prsem = 6;
+    }
+    //buscar fecha para primera celda:
+    diaprmes = primeromes.getDate()
+    prcelda = diaprmes - prsem; //restar días que sobran de la semana
+    empezar = primeromes.setDate(prcelda) //empezar= tiempo UNIX 1ª celda
+    diames = new Date() //convertir en fecha
+    diames.setTime(empezar); //diames=fecha primera celda.
+    //Recorrer las celdas para escribir el día:
+    for (i = 1; i < 7; i++) { //localizar fila
+        fila = document.getElementById("fila" + i);
+        for (j = 0; j < 7; j++) {
+            midia = diames.getDate()
+            mimes = diames.getMonth()
+            mianno = diames.getFullYear()
+            celda = fila.getElementsByTagName("td")[j];
+            celda.innerHTML = midia;
+            //Recuperar estado inicial al cambiar de mes:
+            celda.style.backgroundColor = "#9bf5ff";
+            celda.style.color = "#492736";
+
+            if (midia >= ciclo.getDate() + 1 && midia <= ciclo.getDate() + duracion) {
                 celda.style.backgroundColor = "#be42ee";
             }
             //domingos en rojo
@@ -106,17 +160,17 @@ function escribirdias() {
     }
 }
 //Ver mes anterior
-function mesantes() {
+function mesantes(duracion) {
     nuevomes = new Date() //nuevo objeto de fecha
     primeromes--; //Restamos un día al 1 del mes visualizado
     nuevomes.setTime(primeromes) //cambiamos fecha al mes anterior 
     mescal = nuevomes.getMonth() //cambiamos las variables que usarán las funciones
     annocal = nuevomes.getFullYear()
     cabecera() //llamada a funcion de cambio de cabecera
-    escribirdias() //llamada a funcion de cambio de tabla.
+    escribirdias(duracion) //llamada a funcion de cambio de tabla.
 }
 //ver mes posterior
-function mesdespues() {
+function mesdespues(duracion) {
     nuevomes = new Date() //nuevo obejto fecha
     tiempounix = primeromes.getTime() //tiempo de primero mes visible
     tiempounix = tiempounix + (45 * 24 * 60 * 60 * 1000) //le añadimos 45 días 
@@ -124,17 +178,17 @@ function mesdespues() {
     mescal = nuevomes.getMonth() //cambiamos variables 
     annocal = nuevomes.getFullYear()
     cabecera() //escribir la cabecera 
-    escribirdias() //escribir la tabla
+    escribirdias(duracion) //escribir la tabla
 }
 //volver al mes actual
-function actualizar() {
+function actualizar(duracion) {
     mescal = hoy.getMonth(); //cambiar a mes actual
     annocal = hoy.getFullYear(); //cambiar a año actual 
     cabecera() //escribir la cabecera
-    escribirdias() //escribir la tabla
+    escribirdias(duracion) //escribir la tabla
 }
 //ir al mes buscado
-function mifecha() {
+function mifecha(duracion) {
     //Recoger dato del año en el formulario
     mianno = document.buscar.buscaanno.value;
     //recoger dato del mes en el formulario
@@ -153,6 +207,6 @@ function mifecha() {
         mescal = mife.getMonth(); //cambiar a mes y año indicados
         annocal = mife.getFullYear();
         cabecera() //escribir cabecera
-        escribirdias() //escribir tabla
+        escribirdias(duracion) //escribir tabla
     }
 }
