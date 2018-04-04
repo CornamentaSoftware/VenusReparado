@@ -37,7 +37,8 @@
                 $('#date-button').on('click', function () {
                     $('#textofecha').datepicker('show');
                 });
-            });
+				escribirdias();
+			});
             function adda(delta) {
                 valor = eval(formulario1.casilla1.value);
                 if (valor < 10) {
@@ -163,65 +164,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="Calendario">
-            <p class="DancingScript">Calendario Menstrual</p>
-            <div id="divBotones">
-                <p class="tit">¡CONOCE TU CICLO!</p>
-                <p class="textco">Introduce los datos para que puedas crear tu calendario menstrual y tu ciclo:</p>
-                <br>
-                <table>
-                    <tr>
-                        <th id="th1">
-                            <p class="Montserrat">
-                                ¿Cuándo inició tu último periodo? 
-
-                            </p>
-                        </th>
-                        <th id="th2">
-                            <p class="Montserrat">
-                                ¿Cuántos días duró?
-
-                            </p>
-                        </th>
-                        <th id="th3">
-                            <p class="Montserrat">
-                                ¿Cuántos días dura tu ciclo?
-                            </p>
-                        </th>
-                        <th>
-                            <p class="Montserrat">
-                                Calcular
-                            </p>
-                        </th>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" id="textofecha"/>
-                            <button id="date-button" class="btncalen btnRCalen btnpos fa fa-calendar-check-o"></button>
-                        </td>
-                        <td>
-                            <form name="formulario1">
-                                <span class="btnplusmin1 btnR2td btnpos fa fa-minus" onClick="addb(-1);"> </span>
-                                <input type="text" class="spannums btnR2td btnpos" name="casilla1" value="1" readonly />
-                                <span class="btnplusmin1 btnR2td btnpos fa fa-plus" onClick="adda(1);"></span>
-                            </form>
-                        </td>
-                        <td>
-                            <form name="formulario2">
-                                <span class="btnplusmin2 btnR3td btnpos fa fa-minus" onclick="add2b(-1);"></span> 
-                                <input type="text" class="spannums2 btnR3td btnpos" name="casilla2" value="1" readonly> 
-                                <span class="btnplusmin2 btnR3td btnpos fa fa-plus" onclick="add2a(1);"></span>
-                            </form>
-
-                        </td>
-                        <td>
-                            <span class="btn2 btnR2 btnpos fa fa-calculator" onclick="calen();"></span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        
         <div class="barraT">
             <div id="titlecons">
                 <p class="tit3">Algunos consejos...</p>
@@ -281,7 +224,7 @@
             <span class="litbtn2 color10 color10R btnpos fa fa-circle-o" onClick=""></span>
         </div>
         <div class="frame">
-            <iframe class="liframe" width="290" height="400" name="cal" id="windowcal" hidden="hidden"></iframe>
+            <iframe class="liframe" width="290" height="750" name="cal" id="windowcal" src="calendariodos.html"></iframe>
             <!-- <iframe class="border" width="422" height="428" src="../Img/cm.jpg" name="cal" id="windowciclo" hidden="hidden"></iframe>
             -->
             <br>
